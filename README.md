@@ -1,4 +1,4 @@
-# LinPomodoro - 系统托盘番茄钟
+# Pomodoro - 系统托盘番茄钟
 
 一个基于 Python 的系统托盘番茄钟应用程序，轻量无窗口，专注提升效率。
 
@@ -59,7 +59,7 @@ python pomodoro.py
 ## 文件结构
 
 ```
-LinPomodoro/
+pomodoro/
 ├── pomodoro.py      # 主程序（配置在文件顶部）
 ├── start.bat        # Windows 启动脚本
 ├── requirements.txt # 依赖列表
