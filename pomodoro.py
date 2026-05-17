@@ -27,10 +27,8 @@ BREAK_TIME = 5
 LONG_BREAK_TIME = 15
 ROUNDS_BEFORE_LONG_BREAK = 4
 
-# 界面颜色设置
+# 界面颜色设置（三种状态色）
 WORK_COLOR = (231, 76, 60)            # 工作时间 (红色)
-WORK_WARNING_COLOR = (243, 156, 18)   # 工作时间警告色 (橙色)
-WORK_CRITICAL_COLOR = (231, 76, 60)   # 工作时间临界色 (红色)
 BREAK_COLOR = (39, 174, 96)           # 休息时间 (绿色)
 PAUSE_COLOR = (149, 165, 166)         # 暂停状态 (灰色)
 
@@ -67,12 +65,18 @@ class IconGenerator:
                                 corner_radius, color)
 
         try:
-            font = ImageFont.truetype("msyh.ttc", LARGE_ICON_TEXT_SIZE)
+            font = ImageFont.truetype("ariblk.ttf", LARGE_ICON_TEXT_SIZE)
         except:
             try:
-                font = ImageFont.truetype("arial.ttf", LARGE_ICON_TEXT_SIZE)
+                font = ImageFont.truetype("impact.ttf", LARGE_ICON_TEXT_SIZE)
             except:
-                font = ImageFont.load_default()
+                try:
+                    font = ImageFont.truetype("msyh.ttc", LARGE_ICON_TEXT_SIZE)
+                except:
+                    try:
+                        font = ImageFont.truetype("arial.ttf", LARGE_ICON_TEXT_SIZE)
+                    except:
+                        font = ImageFont.load_default()
 
         try:
             small_font = ImageFont.truetype("msyh.ttc", LARGE_ICON_STATE_SIZE)
@@ -166,15 +170,7 @@ class PomodoroTimer:
         """获取当前状态对应的颜色"""
         if self.is_paused:
             return PAUSE_COLOR
-
-        base_color = self.colors.get(self.current_state, WORK_COLOR)
-
-        if self.current_state == self.STATE_WORK and self.current_time <= 60:
-            return WORK_CRITICAL_COLOR
-        elif self.current_state == self.STATE_WORK and self.current_time <= 300:
-            return WORK_WARNING_COLOR
-
-        return base_color
+        return self.colors.get(self.current_state, WORK_COLOR)
 
     def get_state_text(self):
         """获取状态文本"""
